@@ -8,13 +8,25 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, Coordinating {
+    var coordinator: Coordinator?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        view.backgroundColor = .orange
+        title = "Home"
+        
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 240, height: 44))
+        view.addSubview(button)
+        button.center = view.center
+        button.backgroundColor = .green
+        button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        button.setTitle("Tap me!", for: .normal)
     }
-
-
+    
+    @objc func didTapButton() {
+        coordinator?.eventOccurred(with: .buttonTapped)
+    }
 }
 
